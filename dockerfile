@@ -1,10 +1,7 @@
-FROM python:3.12-slim
-# Instala o distutils antes de instalar as dependências
-RUN apt-get update && apt-get install -y python3-distutils
+vFROM python:3.12-slim
 
-# Instala dependências de sistema para compilação e bibliotecas usadas pelos pacotes
-RUN apt-get update && \
-    apt-get install -y \
+# Instala o distutils antes de instalar as dependências
+RUN apt-get update && apt-get install -y python3-distutils\
         gcc \
         g++ \
         build-essential \
