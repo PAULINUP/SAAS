@@ -1,0 +1,17 @@
+🔍 Arquivo analisado: COMBUSTIVEL 3.xlsx
+Tipo detectado: desconhecido
+
+📊 Colunas detectadas:
+Filtros aplicados:
+Data é igual a ou está depois de quarta-feira, 1 de janeiro de 2025
+ds_filial é CDD SETE LAGOAS
+ds_empresa não é (Em branco)
+ds_empresa é NEXWAY, Unnamed: 1, Unnamed: 2, Unnamed: 3, Unnamed: 4
+
+🧪 Primeiras linhas:
+Filtros aplicados:\nData é igual a ou está depois de quarta-feira, 1 de janeiro de 2025\nds_filial é CDD SETE LAGOAS\nds_empresa não é (Em branco)\nds_empresa é NEXWAY Unnamed: 1 Unnamed: 2     Unnamed: 3      Unnamed: 4
+                                                                                                                                                                    NaN        NaN        NaN            NaN             NaN
+                                                                                                                                                             Data - Ano Data - Mês Data - Dia Média Esperada Média Realizada
+                                                                                                                                                                   2025    janeiro          2       3.245714        3.448194
+                                                                                                                                                                   2025    janeiro          3           2.82        3.142827
+                                                                                                                                                                   2025    janeiro          4       3.421111        3.298255

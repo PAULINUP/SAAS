@@ -1,0 +1,11 @@
+🔍 Arquivo analisado: COMBUSTIVEL 1.xlsx
+Tipo detectado: desconhecido
+
+📊 Colunas detectadas:
+Filial, Custo Total, Custo Médio, KM Rod. / HR Trab., Litros, Média Esperada, Média Real, Impacto, Emissão CO2, Impacto CO2
+
+🧪 Primeiras linhas:
+                                                                                                                                                                                                                    Filial  Custo Total  Custo Médio  KM Rod. / HR Trab.   Litros  Média Esperada  Média Real     Impacto Emissão CO2 Impacto CO2
+                                                                                                                                                                                                           CDD SETE LAGOAS  823387.3785     6.058712            450368.0 135901.4        3.342485    3.313932 7033.728182  338.446 kg   -7.594 kg
+                                                                                                                                                                                                                       NaN          NaN          NaN                 NaN      NaN             NaN         NaN         NaN         NaN         NaN
+Filtros aplicados:\nDesabilita Filiais combustivel não está em branco\nData é igual a ou está depois de quarta-feira, 1 de janeiro de 2025\nds_filial é CDD SETE LAGOAS\nds_empresa não é (Em branco)\nds_empresa é NEXWAY          NaN          NaN                 NaN      NaN             NaN         NaN         NaN         NaN         NaN

@@ -1,0 +1,18 @@
+🔍 Arquivo analisado: COMBUSTIVEL 2.xlsx
+Tipo detectado: desconhecido
+
+📊 Colunas detectadas:
+Filtros aplicados:
+Total Custo maior que R$ 0
+Data é igual a ou está depois de quarta-feira, 1 de janeiro de 2025
+ds_filial é CDD SETE LAGOAS
+ds_empresa não é (Em branco)
+ds_empresa é NEXWAY, Unnamed: 1, Unnamed: 2, Unnamed: 3, Unnamed: 4
+
+🧪 Primeiras linhas:
+Filtros aplicados:\nTotal Custo maior que R$ 0\nData é igual a ou está depois de quarta-feira, 1 de janeiro de 2025\nds_filial é CDD SETE LAGOAS\nds_empresa não é (Em branco)\nds_empresa é NEXWAY Unnamed: 1 Unnamed: 2  Unnamed: 3  Unnamed: 4
+                                                                                                                                                                                                NaN        NaN        NaN         NaN         NaN
+                                                                                                                                                                                         Data - Ano Data - Mês Data - Dia Custo Total Custo Médio
+                                                                                                                                                                                               2025    janeiro          2  4012.30194    5.971167
+                                                                                                                                                                                               2025    janeiro          3  5335.21707    5.971391
+                                                                                                                                                                                               2025    janeiro          4   5666.9644    5.928035

@@ -1,0 +1,5 @@
+🔍 Arquivo analisado: arquivo_desconhecido
+Tipo detectado: desconhecido
+
+⚠️ Erro encontrado:
+Extensão não suportada: 
