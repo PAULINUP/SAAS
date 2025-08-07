@@ -26,4 +26,4 @@ RUN pip install .
 EXPOSE 8000
 
 # Comando padrão de inicialização da API
-CMD ["uvicorn", "api_gateway:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "api_gateway:app", "--host", "0.0.0.0", "--port", "8080"]
