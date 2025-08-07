@@ -1,4 +1,6 @@
 FROM python:3.12-slim
+# Instala o distutils antes de instalar as dependências
+RUN apt-get update && apt-get install -y python3-distutils
 
 # Instala dependências de sistema para compilação e bibliotecas usadas pelos pacotes
 RUN apt-get update && \
@@ -32,7 +34,7 @@ COPY . .
 
 # Instala as dependências do Python
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --use-pep517 -r requirements.txt
 
 # Expõe a porta do FastAPI
 EXPOSE 8080
