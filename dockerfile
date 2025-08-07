@@ -1,29 +1,41 @@
-# Dockerfile - Q-Core AI System
+FROM python:3.12-slim
 
-FROM python:3.11-slim
+# Instala dependências de sistema para compilação e bibliotecas usadas pelos pacotes
+RUN apt-get update && \
+    apt-get install -y \
+        gcc \
+        g++ \
+        build-essential \
+        libpoppler-cpp-dev \
+        pkg-config \
+        python3-dev \
+        libtesseract-dev \
+        tesseract-ocr \
+        poppler-utils \
+        libmagic-dev \
+        libjpeg-dev \
+        zlib1g-dev \
+        libpq-dev \
+        libxml2-dev \
+        libxslt1-dev \
+        libffi-dev \
+        libssl-dev \
+        git && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Diretório de trabalho dentro do container
+# Define diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos do projeto
-COPY . /app
+# Copia os arquivos
+COPY . .
 
-# Instala dependências do sistema
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    python3-dev \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Instala as dependências Python
+# Instala as dependências do Python
 RUN pip install --upgrade pip
-RUN pip install .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expõe a porta padrão da API
-EXPOSE 8000
+# Expõe a porta do FastAPI
+EXPOSE 8080
 
-# Comando padrão de inicialização da API
-CMD ["uvicorn", "api_gateway:app", "--host", "0.0.0.0", "--port", "8080"]
+# Comando para iniciar a aplicação
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
