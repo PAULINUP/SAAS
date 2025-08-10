@@ -1,5 +1,19 @@
 # Interface MVP (Streamlit) para perguntas e visualização do Q-Core AI
 
+# --- bootstrap p/ rodar no Streamlit Cloud ---
+import os, sys
+ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))  # raiz do repo
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
+import streamlit as st
+
+# evitar KeyError se não houver secrets configurados
+OPENAI_KEY = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY", ""))
+
+st.set_page_config(page_title="Q-Core SaaS", layout="wide")
+st.write("✅ App carregou. Versão OK.")
+# ---------------------------------------------
 import streamlit as st
 import requests
 import os
