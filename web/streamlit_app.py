@@ -7,24 +7,18 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 import streamlit as st
+import requests
+from dotenv import load_dotenv
 
 # evitar KeyError se não houver secrets configurados
 OPENAI_KEY = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY", ""))
 
+load_dotenv()  # carrega .env se existir
+
 st.set_page_config(page_title="Q-Core SaaS", layout="wide")
-st.write("✅ App carregou. Versão OK.")
-# ---------------------------------------------
-import streamlit as st
-import requests
-import os
-from dotenv import load_dotenv
-
-# Carrega variáveis do .env, se existir
-load_dotenv()
-
-st.set_page_config(page_title="Q-Core AI", layout="centered")
 st.title("Q-Core AI :: Simulador Preditivo")
 st.write("Faça upload de múltiplos arquivos e uma pergunta analítica.")
+# ---------------------------------------------
 
 # URLs finais (produção Railway ou fallback local)
 BACKEND_ANALYZE_URL = os.getenv(
@@ -40,7 +34,8 @@ BACKEND_UPLOAD_URL = os.getenv(
 uploaded_files = st.file_uploader(
     "Selecione arquivos para análise (PDF, Excel, Word, CSV, JSON)",
     type=["pdf", "csv", "xlsx", "xls", "docx", "json", "txt"],
-    accept_multiple_files=True
+    accept_multiple_files=True,
+    key="uploader"
 )
 
 if uploaded_files:
@@ -49,7 +44,7 @@ if uploaded_files:
         saved_paths = []
         for file in uploaded_files:
             try:
-                files = {"file": (file.name, file.getvalue())}
+                files = {"file": (file.name, file.getvalue())}  # getbuffer() tbm funciona
                 resp = requests.post(BACKEND_UPLOAD_URL, files=files, timeout=30)
                 resp.raise_for_status()
                 result_upload = resp.json()
@@ -81,7 +76,6 @@ if st.button("Enviar pergunta"):
 
                 st.success("✅ Resposta recebida com sucesso!")
 
-                # Resultados
                 st.subheader("Resumo Executivo")
                 st.info(result.get("resumo_executivo", ""))
 
@@ -100,7 +94,11 @@ if st.button("Enviar pergunta"):
                 st.write(result.get("explicabilidade", ""))
 
                 st.subheader("Confiança")
-                st.write(f"{result.get('confianca', 0) * 100:.1f}%")
+                conf = result.get("confianca")
+                if isinstance(conf, (int, float)):
+                    st.write(f"{conf*100:.1f}%")
+                else:
+                    st.write(conf or "—")
 
                 if result.get("entidades"):
                     st.subheader("Entidades Extraídas")
