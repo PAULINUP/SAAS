@@ -1,4 +1,4 @@
-vFROM python:3.12-slim
+FROM python:3.11-slim
 
 # Instala o distutils antes de instalar as dependências
 RUN apt-get update && apt-get install -y python3-distutils\
