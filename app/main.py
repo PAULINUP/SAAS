@@ -17,3 +17,6 @@ def root():
     return {"status": "ok"}
 
 app.include_router(api_routes)
+@app.get("/health")
+def health():
+    return {"ok": True}
