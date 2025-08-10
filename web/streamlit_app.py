@@ -1,6 +1,15 @@
 # Interface MVP (Streamlit) para perguntas e visualização do Q-Core AI
 
 # --- bootstrap p/ rodar no Streamlit Cloud ---
+import platform, requests, streamlit as st, os
+st.caption(f"🐍 Python: {platform.python_version()}")
+BASE = os.getenv("BACKEND_API_URL", "https://qcoresystem-production.up.railway.app")
+try:
+    ok = requests.get(BASE, timeout=4).ok
+    st.success("Backend online ✅") if ok else st.warning("Backend offline ⚠️")
+except Exception:
+    st.warning("Backend offline ⚠️")
+
 import os, sys
 ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))  # raiz do repo
 if ROOT not in sys.path:
