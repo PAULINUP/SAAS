@@ -1,10 +1,10 @@
-streamlit==1.33.0
+fastapi==0.115.0
+uvicorn==0.30.6
+pydantic>=2.7,<3
+aiofiles==24.1.0
+python-dotenv==1.0.1
+# se seu core usar:
 pandas==2.2.2
 numpy==1.26.4
 scikit-learn==1.5.1
-requests==2.32.3
-python-dotenv==1.0.1
-pydantic>=2.7,<3
 pdfminer.six==20240706
-spacy==3.7.4
-sympy==1.13.2
