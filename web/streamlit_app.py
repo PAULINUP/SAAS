@@ -13,7 +13,7 @@ st.set_page_config(page_title="Q-Core SaaS", layout="wide")
 load_dotenv()
 
 # Endpoints fixos (travados)
-BACKEND_BASE_URL = "https://qcoresystem-production.up.railway.app".rstrip("/")
+BACKEND_BASE_URL = "https://saas-production-9d1e.up.railway.app".rstrip("/")
 BACKEND_ANALYZE_URL = f"{BACKEND_BASE_URL}/api/analyze"
 BACKEND_UPLOAD_URL = f"{BACKEND_BASE_URL}/api/upload"
 
