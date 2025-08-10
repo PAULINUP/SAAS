@@ -3,19 +3,23 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
 .venv/
+venv/
 .env
+.env.*
 
-# Build/Dist
-dist/
-build/
+# Streamlit
+.streamlit/secrets.toml
 
-# Dados/temporários
+# Saídas do app
 uploads/
 relatorios_gerados/
-test_data/
 
-# IDEs
+# VSCode/IDE
 .vscode/
 .idea/
-*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
