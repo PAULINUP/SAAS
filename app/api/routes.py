@@ -12,9 +12,8 @@ class AnalyzeRequest(BaseModel):
 
 @router.post("/upload")
 async def upload_document(file: UploadFile = File(...)):
-    try:
-        path = await save_upload(file)  # retorna caminho salvo
-        return {"file_path": path}
+    path = await save_upload(file)
+    return {"file_path": path}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
