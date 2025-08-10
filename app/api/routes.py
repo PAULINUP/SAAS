@@ -3,16 +3,13 @@ from pydantic import BaseModel
 from typing import List
 from app.ingestion.uploader import save_upload
 from app.core.qcore_engine import process_question
-from app.simulation.macro_handler import process_directories  # novo import
+# evite importar módulos com "..." por enquanto
 
 router = APIRouter(prefix="/api", tags=["QCore AI"])
 
 class AnalyzeRequest(BaseModel):
     question: str
-    pdf_path: str
-
-class MacroAnalyzeRequest(BaseModel):
-    dir_paths: List[str]
+    file_paths: List[str]
 
 @router.post("/upload")
 async def upload_document(file: UploadFile = File(...)):
@@ -20,11 +17,7 @@ async def upload_document(file: UploadFile = File(...)):
     return {"file_path": path}
 
 @router.post("/analyze")
-async def analyze_question(request: AnalyzeRequest):
-    result = process_question(request.question, request.pdf_path)
+async def analyze_question(req: AnalyzeRequest):
+    # Por enquanto, passe apenas caminhos (stub do core lida com isso)
+    result = process_question(req.question, req.file_paths)
     return result
-
-@router.post("/macro_analyze")
-async def macro_analyze(req: MacroAnalyzeRequest):
-    result = process_directories(req.dir_paths)
-    return {"macro_result": result}
