@@ -120,5 +120,5 @@ docs/
 ---
 
  **License**: Apache 2.0 (Quantum Compute Provisions Apply)  
- **Official Site**: [qcore.tech](https://qcore.tech)  
- **Support**: quantum-support@qcore.tech
+ **Official Site**:
+ **Support**:
