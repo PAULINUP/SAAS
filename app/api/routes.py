@@ -1,11 +1,10 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import List
 from app.ingestion.uploader import save_upload
 from app.core.qcore_engine import process_question
-# evite importar módulos com "..." por enquanto
 
-router = APIRouter(prefix="/api", tags=["QCore AI"])
+router = APIRouter(prefix="/api", tags=["QCore"])
 
 class AnalyzeRequest(BaseModel):
     question: str
@@ -13,11 +12,12 @@ class AnalyzeRequest(BaseModel):
 
 @router.post("/upload")
 async def upload_document(file: UploadFile = File(...)):
-    path = await save_upload(file)
-    return {"file_path": path}
+    try:
+        path = await save_upload(file)  # retorna caminho salvo
+        return {"file_path": path}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/analyze")
 async def analyze_question(req: AnalyzeRequest):
-    # Por enquanto, passe apenas caminhos (stub do core lida com isso)
-    result = process_question(req.question, req.file_paths)
-    return result
+    return process_question(req.question, req.file_paths)
