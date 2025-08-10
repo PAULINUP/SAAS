@@ -15,7 +15,7 @@ BACKEND_ANALYZE_URL = os.getenv("BACKEND_API_URL", f"{BACKEND_BASE_URL}/api/anal
 BACKEND_UPLOAD_URL  = os.getenv("BACKEND_API_UPLOAD_URL", f"{BACKEND_BASE_URL}/api/upload")
 
 # 4) badge centralizado e “travamento” automático
-from .utils.status import backend_guard (base_url=BACKEND_BASE_URL, stop_on_fail=True)
+from utils.status import backend_guard (base_url=BACKEND_BASE_URL, stop_on_fail=True)
 
 # 5) resto da UI normal...
 st.title("Q-Core AI :: Simulador Preditivo")
