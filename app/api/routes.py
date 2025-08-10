@@ -1,10 +1,8 @@
+# app/api/routes.py
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import List
 from app.ingestion.uploader import save_upload
-
-# Se já tiver sua lógica real, importe aqui:
-# from app.core.qcore_engine import process_question
 
 router = APIRouter(prefix="/api", tags=["QCore"])
 
@@ -23,15 +21,15 @@ async def upload_document(file: UploadFile = File(...)):
 @router.post("/analyze")
 async def analyze(req: AnalyzeRequest):
     try:
-        # TODO: troque por sua função real
+        # TODO: ligar seu engine real aqui
         result = {
-            "resumo_executivo": f"Pergunta: {req.question}. {len(req.file_paths)} arquivo(s).",
-            "detalhe_tecnico": "Stub de análise (substituir por engine real).",
-            "cenarios_alternativos": ["A", "B"],
+            "resumo_executivo": f"Pergunta: {req.question} / {len(req.file_paths)} arquivo(s).",
+            "detalhe_tecnico": "Stub de análise — troque pelo engine.",
+            "cenarios_alternativos": ["A","B"],
             "recomendacoes": ["Coletar mais dados"],
             "explicabilidade": "Regras demo.",
             "confianca": 0.82,
-            "entidades": ["demo1", "demo2"],
+            "entidades": ["demo1","demo2"],
             "limitacoes": "Modelo ainda não treinado."
         }
         return result
