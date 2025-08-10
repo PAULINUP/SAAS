@@ -1,14 +1,26 @@
+# web/streamlit_app.py (trecho)
 import os, sys, platform
 import streamlit as st
-import requests
-from io import BytesIO
 from dotenv import load_dotenv
 
-# --- bootstrap / path raiz ---
-ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-if ROOT not in sys.path:
-    sys.path.insert(0, ROOT)
+# 1) page config NO TOPO
+st.set_page_config(page_title="Q-Core SaaS", layout="wide")
 
+# 2) bootstrap
+load_dotenv()
+
+# 3) URLs do backend (todas derivam de uma BASE única)
+BACKEND_BASE_URL = os.getenv("BACKEND_BASE_URL", "https://seu-app.up.railway.app").rstrip("/")
+BACKEND_ANALYZE_URL = os.getenv("BACKEND_API_URL", f"{BACKEND_BASE_URL}/api/analyze")
+BACKEND_UPLOAD_URL  = os.getenv("BACKEND_API_UPLOAD_URL", f"{BACKEND_BASE_URL}/api/upload")
+
+# 4) badge centralizado e “travamento” automático
+from web.utils.status import backend_guard   # ajuste o import se a pasta 'web' for o root do app
+backend_guard(base_url=BACKEND_BASE_URL, stop_on_fail=True)
+
+# 5) resto da UI normal...
+st.title("Q-Core AI :: Simulador Preditivo")
+# ...
 # PRIMEIRA e ÚNICA chamada st.*
 st.set_page_config(page_title="Q-Core SaaS", layout="wide")
 st.caption(f"🐍 Python: {platform.python_version()}")
