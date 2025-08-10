@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+
+# Build/Dist
+dist/
+build/
+
+# Dados/temporários
+uploads/
+relatorios_gerados/
+test_data/
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
