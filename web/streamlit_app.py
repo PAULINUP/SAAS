@@ -1,32 +1,31 @@
 # Interface MVP (Streamlit) para perguntas e visualização do Q-Core AI
 
 # --- bootstrap p/ rodar no Streamlit Cloud ---
-import platform, requests, streamlit as st, os
-st.caption(f"🐍 Python: {platform.python_version()}")
-BASE = os.getenv("BACKEND_API_URL", "https://qcoresystem-production.up.railway.app")
-try:
-    ok = requests.get(BASE, timeout=4).ok
-    st.success("Backend online ✅") if ok else st.warning("Backend offline ⚠️")
-except Exception:
-    st.warning("Backend offline ⚠️")
-
-import os, sys
-ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))  # raiz do repo
-if ROOT not in sys.path:
-    sys.path.insert(0, ROOT)
-
+import os, sys, platform
 import streamlit as st
 import requests
 from dotenv import load_dotenv
 
-OPENAI_KEY = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY", ""))
-load_dotenv()
+ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))  # raiz do repo
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
+# 1) PRIMEIRA e ÚNICA chamada de Streamlit:
 st.set_page_config(page_title="Q-Core SaaS", layout="wide")
+
+# Diagnóstico rápido
+st.caption(f"🐍 Python: {platform.python_version()}")
+
+# evitar KeyError se não houver secrets configurados
+OPENAI_KEY = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY", ""))
+
+load_dotenv()  # carrega .env se existir
+
 st.title("Q-Core AI :: Simulador Preditivo")
 st.write("Faça upload de múltiplos arquivos e uma pergunta analítica.")
+# ---------------------------------------------
 
-# URLs (Railway em prod; dá para sobrescrever via Secrets/.env)
+# URLs (Railway em prod; pode sobrescrever via Secrets/.env)
 BACKEND_ANALYZE_URL = os.getenv(
     "BACKEND_API_URL",
     "https://qcoresystem-production.up.railway.app/api/analyze"
@@ -44,6 +43,7 @@ try:
 except Exception:
     st.warning("Backend offline ⚠️")
 
+# Upload de múltiplos arquivos
 uploaded_files = st.file_uploader(
     "Selecione arquivos (PDF, Excel, Word, CSV, JSON, TXT)",
     type=["pdf", "csv", "xlsx", "xls", "docx", "json", "txt"],
@@ -70,6 +70,7 @@ if uploaded_files:
 st.write("Agora, digite uma pergunta analítica:")
 question = st.text_input("Ex: Qual o risco de inadimplência?")
 
+# Envio da pergunta
 if st.button("Enviar pergunta"):
     if not question:
         st.warning("Digite uma pergunta antes de enviar.")
@@ -85,18 +86,25 @@ if st.button("Enviar pergunta"):
                 result = response.json()
 
                 st.success("✅ Resposta recebida!")
+
                 st.subheader("Resumo Executivo");      st.info(result.get("resumo_executivo", ""))
                 st.subheader("Detalhe Técnico");       st.write(result.get("detalhe_tecnico", ""))
+
                 if result.get("cenarios_alternativos"):
                     st.subheader("Cenários Alternativos"); st.write(result["cenarios_alternativos"])
+
                 if result.get("recomendacoes"):
                     st.subheader("Recomendações");     st.write(result["recomendacoes"])
+
                 st.subheader("Explicabilidade");       st.write(result.get("explicabilidade", ""))
+
                 st.subheader("Confiança")
                 conf = result.get("confianca")
                 st.write(f"{conf*100:.1f}%") if isinstance(conf, (int, float)) else st.write(conf or "—")
+
                 if result.get("entidades"):
                     st.subheader("Entidades Extraídas"); st.write(result["entidades"])
+
                 if result.get("limitacoes"):
                     st.subheader("Limitações");        st.warning(result["limitacoes"])
 
