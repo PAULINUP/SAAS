@@ -2,7 +2,9 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import List
 from app.ingestion.uploader import save_upload
-from app.core.qcore_engine import process_question
+
+# Se já tiver sua lógica real, importe aqui:
+# from app.core.qcore_engine import process_question
 
 router = APIRouter(prefix="/api", tags=["QCore"])
 
@@ -12,11 +14,26 @@ class AnalyzeRequest(BaseModel):
 
 @router.post("/upload")
 async def upload_document(file: UploadFile = File(...)):
-    path = await save_upload(file)
-    return {"file_path": path}
+    try:
+        path = await save_upload(file)
+        return {"file_path": path}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/analyze")
-async def analyze_question(req: AnalyzeRequest):
-    return process_question(req.question, req.file_paths)
+async def analyze(req: AnalyzeRequest):
+    try:
+        # TODO: troque por sua função real
+        result = {
+            "resumo_executivo": f"Pergunta: {req.question}. {len(req.file_paths)} arquivo(s).",
+            "detalhe_tecnico": "Stub de análise (substituir por engine real).",
+            "cenarios_alternativos": ["A", "B"],
+            "recomendacoes": ["Coletar mais dados"],
+            "explicabilidade": "Regras demo.",
+            "confianca": 0.82,
+            "entidades": ["demo1", "demo2"],
+            "limitacoes": "Modelo ainda não treinado."
+        }
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
